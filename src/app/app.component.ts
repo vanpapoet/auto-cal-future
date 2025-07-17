@@ -1,5 +1,5 @@
 import { DecimalPipe, NgIf } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -20,17 +20,13 @@ export class AppComponent implements OnInit {
 
   margin: number | null = null;
   realMargin: number | null = null;
-  // rr: number | null = null;
-  // stopLoss: number | null = null;
-  // takeProfit: number | null = null;
-
   SL: number | null = null;
   TP: number | null = null;
-
   SL1R: number | null = null;
-  // expectedTP: number | null = null;
-
   expectedRR: FormControl | null = null;
+
+  @ViewChild('positionTypeInput')
+  positionTypeInput!: ElementRef<HTMLInputElement>;
 
   readonly STORAGE_KEY = 'totalMargin';
 
@@ -41,10 +37,10 @@ export class AppComponent implements OnInit {
 
     this.form = this.fb.group({
       totalMargin: [savedTotalMargin ? +savedTotalMargin : null],
-      percentLoss: [2, [Validators.required, Validators.min(0.01)]],
+      lossPercentViaMargin: [2, [Validators.required, Validators.min(0.01)]],
       leverage: [44, [Validators.required, Validators.min(1)]],
       expectedRR: [2, [Validators.required, Validators.min(0.1)]],
-      lossPercent: [0, [Validators.required, Validators.min(0.01)]],
+      realLossPercent: [0, [Validators.required, Validators.min(0.01)]],
       maxLoss: [
         {
           value: 100,
@@ -61,7 +57,7 @@ export class AppComponent implements OnInit {
       .get('totalMargin')!
       .valueChanges.subscribe(() => this.updateMaxLoss());
     this.form
-      .get('percentLoss')!
+      .get('lossPercentViaMargin')!
       .valueChanges.subscribe(() => this.updateMaxLoss());
 
     this.form.valueChanges.subscribe((values) => {
@@ -75,33 +71,28 @@ export class AppComponent implements OnInit {
     this.calculate();
   }
 
+  ngAfterViewInit() {
+    // Delay to ensure the DOM is fully rendered
+    setTimeout(() => {
+      this.positionTypeInput.nativeElement.focus();
+    });
+  }
+
   calculate() {
     if (this.form.invalid) {
-      // this.margin =
-      //   // this.rr =
-      //   this.stopLoss =
-      //   this.takeProfit =
-      //   this.currentSL =
-      //   this.currentTP =
-      //     // this.expectedSL =
-      //     // this.expectedTP =
-      //     null;
       return;
     }
 
-    const { leverage, lossPercent, entryPrice, expectedRR, positionType } =
+    const { leverage, realLossPercent, entryPrice, expectedRR, positionType } =
       this.form.getRawValue();
     const maxLoss = this.form.get('maxLoss')!.value;
-    const lossRatio = lossPercent / 100;
+    const lossRatio = realLossPercent / 100;
 
     this.margin = maxLoss / lossRatio;
     this.realMargin = this.margin / leverage;
 
-    // this.rr = leverage * lossRatio;
-
     if (entryPrice) {
       const lossAmount = entryPrice * lossRatio;
-
       const isLong = positionType === 'long';
 
       // 🔵 Current SL/TP
@@ -116,16 +107,13 @@ export class AppComponent implements OnInit {
         ? entryPrice - onePercentMove
         : entryPrice + onePercentMove;
     } else {
-      this.SL = this.TP =
-        // this.expectedSL =
-        // this.expectedTP =
-        null;
+      this.SL = this.TP = this.SL1R = null;
     }
   }
 
   updateMaxLoss() {
     const total = this.form.get('totalMargin')!.value;
-    const percent = this.form.get('percentLoss')!.value;
+    const percent = this.form.get('lossPercentViaMargin')!.value;
 
     if (!isNaN(total) && !isNaN(percent)) {
       const loss = total * (percent / 100);

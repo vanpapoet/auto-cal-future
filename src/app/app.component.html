@@ -31,7 +31,7 @@
               <label class="block font-medium">% Risk trên margin</label>
               <input
                 type="number"
-                formControlName="percentLoss"
+                formControlName="lossPercentViaMargin"
                 class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-500"
               />
             </div>
@@ -68,13 +68,14 @@
                       class="inline-flex items-center cursor-pointer text-lg"
                     >
                       <input
+                        #positionTypeInput
                         type="radio"
                         formControlName="positionType"
                         value="long"
                         class="sr-only peer"
                       />
                       <span
-                        class="px-4 py-1 rounded-l-lg bg-green-200 peer-checked:bg-green-500 peer-checked:font-bold text-white"
+                        class="px-4 py-1 rounded-l-lg bg-green-200 peer-checked:bg-green-500 peer-checked:font-bold text-white peer-checked:ring-2 peer-checked:ring-green-700 peer-checked:ring-offset-1"
                       >
                         Long
                       </span>
@@ -89,7 +90,7 @@
                         class="sr-only peer"
                       />
                       <span
-                        class="px-4 py-1 rounded-r-lg bg-red-200 peer-checked:bg-red-500 peer-checked:font-bold text-white"
+                        class="px-4 py-1 rounded-r-lg bg-red-200 peer-checked:bg-red-500 peer-checked:font-bold text-white peer-checked:ring-2 peer-checked:ring-red-700 peer-checked:ring-offset-1"
                       >
                         Short
                       </span>
@@ -127,7 +128,7 @@
                 >
                 <input
                   type="number"
-                  formControlName="lossPercent"
+                  formControlName="realLossPercent"
                   class="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
