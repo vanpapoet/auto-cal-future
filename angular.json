@@ -47,7 +47,6 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
               {
                 "glob": "robots.txt",
                 "input": "src/",
@@ -57,6 +56,11 @@
                 "glob": "sitemap.xml",
                 "input": "src/",
                 "output": "./"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "/assets"
               }
             ],
             "styles": ["src/styles.scss"],
