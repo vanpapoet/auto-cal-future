@@ -1,4 +1,4 @@
-# Tinhtoanrr
+# Auto calculator Futures volume, TP, SL, margin, etc.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.7.
 

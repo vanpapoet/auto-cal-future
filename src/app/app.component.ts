@@ -26,7 +26,8 @@ export class AppComponent implements OnInit {
 
   SL: number | null = null;
   TP: number | null = null;
-  // expectedSL: number | null = null;
+
+  SL1R: number | null = null;
   // expectedTP: number | null = null;
 
   expectedRR: FormControl | null = null;
@@ -109,14 +110,11 @@ export class AppComponent implements OnInit {
         ? entryPrice + expectedRR * lossAmount
         : entryPrice - expectedRR * lossAmount;
 
-      // 🟢 Expected SL/TP based on expectedRR
-      // const expectedLoss = (entryPrice * expectedRR) / (1 + expectedRR);
-      // this.expectedSL = isLong
-      //   ? entryPrice - expectedLoss
-      //   : entryPrice + expectedLoss;
-      // this.expectedTP = isLong
-      //   ? entryPrice + expectedLoss
-      //   : entryPrice - expectedLoss;
+      // 🔴 SL 1R
+      const onePercentMove = entryPrice * 0.01; // 1% of entry price
+      this.SL1R = isLong
+        ? entryPrice - onePercentMove
+        : entryPrice + onePercentMove;
     } else {
       this.SL = this.TP =
         // this.expectedSL =
