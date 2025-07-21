@@ -2,11 +2,22 @@
   <div class="flex justify-center">
     <form
       [formGroup]="form"
-      class="bg-white p-4 md:p-6 rounded-2xl shadow-xl w-full max-w-4xl border space-y-4"
+      class="bg-white p-4 md:p-6 rounded-2xl shadow-xl w-full max-w-4xl border space-y-4 glass-morphism"
     >
-      <h2 class="text-3xl font-bold text-center">
-        Auto calculator Futures volume
-      </h2>
+      <div class="grid items-center grid-cols-4">
+        <div class="hidden md:block"></div>
+        <h2
+          translate="no"
+          class="text-3xl font-bold md:whitespace-nowrap col-span-3 md:col-span-2"
+        >
+          Auto calculator Futures volume
+        </h2>
+        <!-- Language dropdown -->
+        <select id="langSelector" class="ml-auto bg-transparent">
+          <option value="vi">🇻🇳</option>
+          <option value="en">🇺🇸</option>
+        </select>
+      </div>
 
       <div class="border-t border-[#ffffff1a]"></div>
 
@@ -75,6 +86,7 @@
                         class="sr-only peer"
                       />
                       <span
+                        translate="no"
                         class="px-4 py-1 rounded-l-lg bg-green-200 peer-checked:bg-green-500 peer-checked:font-bold text-white peer-checked:ring-2 peer-checked:ring-green-700 peer-checked:ring-offset-1"
                       >
                         Long
@@ -90,6 +102,7 @@
                         class="sr-only peer"
                       />
                       <span
+                        translate="no"
                         class="px-4 py-1 rounded-r-lg bg-red-200 peer-checked:bg-red-500 peer-checked:font-bold text-white peer-checked:ring-2 peer-checked:ring-red-700 peer-checked:ring-offset-1"
                       >
                         Short
@@ -165,7 +178,9 @@
             <!-- <div *ngIf="currentSL !== null" class="pt-2 border-t"> -->
             <!-- <h4 class="font-semibold text-green-600">🟢 Current TP/SL</h4> -->
             <p>
-              <strong class="font-semibold text-green-600">🟢 TP:</strong>
+              <strong translate="no" class="font-semibold text-green-600"
+                >🟢 TP:</strong
+              >
               {{ TP | number : "1.2-3" }}
             </p>
             <p>
@@ -192,13 +207,17 @@
   </div>
 
   <footer class="text-center text-sm mt-8 text-[#9ca3af]">
-    Made with ❤️ by <span class="font-semibold">Alan</span>
+    <span translate="no">
+      Made with ❤️ by <span class="font-semibold">Alan</span>
+    </span>
     <br />
     <div class="flex flex-col items-center mt-1">
-      <svg width="180" viewBox="0 0 180 40">
-        <use href="#buy-me-a-coffee" />
-      </svg>
-      <div>
+      <div class="glass-morphism px-2 !bg-[pink] pt-1">
+        <svg width="180" viewBox="0 0 180 40">
+          <use href="#buy-me-a-coffee" />
+        </svg>
+      </div>
+      <div class="mt-0.5">
         <span>BingX UUID: 32118015</span>
         <br />
         <span class="text-wrap flex items-center">

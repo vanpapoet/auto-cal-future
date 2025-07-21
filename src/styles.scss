@@ -81,3 +81,25 @@ label {
   font-size: 14px;
   color: #9ca3af;
 }
+
+/* Optional styling for the language selector */
+#langSelector {
+  padding: 6px;
+  font-size: 16px;
+}
+
+select:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Hide Google Translate UI */
+#google_translate_element2,
+.goog-logo-link,
+.goog-te-gadget span,
+.goog-te-banner-frame,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.skiptranslate {
+  display: none !important;
+}
